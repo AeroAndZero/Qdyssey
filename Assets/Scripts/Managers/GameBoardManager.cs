@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GameBoardManager : MonoBehaviour
@@ -8,6 +9,9 @@ public class GameBoardManager : MonoBehaviour
 
 	[Header("Player Controls")]
 	public Player player;
+
+	[Header("Dice Controls")]
+	public DiceManager diceManager;
 
 	private void Start()
 	{
@@ -21,11 +25,14 @@ public class GameBoardManager : MonoBehaviour
 
 		// Placing player
 		player.setPosition(GameBoard.GetPlacePosition(0));
+
+		// On roll dice event
+		diceManager.onRollDice += moveToNextPlace;
 	}
 
-	public void moveToNextPlace()
+	public void moveToNextPlace(int offset)
 	{
-		player.moveToPlace(player.currentPlace + 1, true);
+		player.moveToPlace(player.currentPlace + offset, true);
 	}
 }
 
