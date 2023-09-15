@@ -21,20 +21,25 @@ public class DiceManager : MonoBehaviour
 		{
 			if(frame % multiplier == 0)
 			{
-				diceText.text = Mathf.RoundToInt(UnityEngine.Random.Range(0f, 6f)).ToString();
+				diceText.text = Mathf.RoundToInt(UnityEngine.Random.Range(1f, 6f)).ToString();
 			}
 
-			multiplier = Mathf.RoundToInt((time / RollDiceTime) * 100) + 1;
+			if(frame % 256 == 0)
+			{
+				multiplier += multiplier;
+			}
+			Debug.Log(multiplier + " multiplier");
+
 			frame += 1;
 			time += Time.deltaTime;
+
 			yield return null;
 		}
 
 		// Get the number
-		int roll = Mathf.RoundToInt(UnityEngine.Random.Range(0f, 6f));
+		int roll = Mathf.RoundToInt(UnityEngine.Random.Range(1f, 6f));
 		diceText.text = roll.ToString();
 		onRollDice.Invoke(roll);
-		
 	}
 
 	public void rollDice()
